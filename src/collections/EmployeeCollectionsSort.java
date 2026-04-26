@@ -70,7 +70,7 @@ public class EmployeeCollectionsSort {
 		System.out.println(empList);
 		
 		System.out.println("Employee details sorted on seniority(hireDate)");
-		Collections.sort(empList, SENIORITY_ORDER);
+		empList.sort(SENIORITY_ORDER);
 		System.out.println(empList);
 
 		System.out.println("Employee details sorted on seniority(hireDate) most senior -> lease senior");
