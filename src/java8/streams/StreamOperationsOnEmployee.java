@@ -1,6 +1,7 @@
 package java8.streams;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -23,15 +24,16 @@ public class StreamOperationsOnEmployee {
                 .filter(e -> e.getDept().equals("Development") && e.getSalary() > 80000)
                 .collect(Collectors.toMap(Employee::getId, Employee::getName));
 
+        System.out.println("Development dept employees with salary > 80000 are: ");
          System.out.println(developmentEmployees);
 
         //map
         //distinct
-        List<String> depts = employees.stream()
+        List<String> ListOfDistinctDepts = employees.stream()
                 .map(Employee::getDept)
                 .distinct()
                 .collect(Collectors.toList());
-        System.out.println(depts);
+        System.out.println(ListOfDistinctDepts);
 
         List<Stream<String>> projectNames = employees.stream()
                 .map(e -> e.getProjects()
@@ -154,6 +156,42 @@ public class StreamOperationsOnEmployee {
                 .collect(Collectors.toList());
 
 
+        /**
+         *
+         * You are given a list of Employee objects. Find the highest-paid employee in each department.
+         * Return a Map where the key is the department name and the value is the Employee (or Optional<Employee>) with the top salary.
+         *
+         * Assume this class: ```java
+         * class Employee {
+         * String name;
+         * String department;
+         * double salary;
+         * // Assume getters exist
+         * }
+         *
+         * Goal: Return Map<String, Optional<Employee>> (or Map<String, Employee>).
+         *
+         *
+         */
+
+        Map<String, List<Employee>> collect = employees.stream()
+//                .map(e -> Map.entry(e.getDept(), e))
+                .collect(Collectors.groupingBy(Employee::getDept));
+        System.out.println(collect);
+
+        Map<String, Optional<Employee>> collect2 = employees.stream()
+                .collect(Collectors.groupingBy(Employee::getDept,
+                                                Collectors.maxBy(Comparator.comparingDouble(Employee::getSalary))));
+        System.out.println(collect2);
+
+        Map<String, Employee> collect3 = employees.stream()
+                .collect(Collectors.toMap(
+                        Employee::getDept,
+                        e->e,
+                        (existingEmp, newEmp) ->
+                                existingEmp.getSalary() >= newEmp.getSalary() ? existingEmp : newEmp
+                ));
+        collect3.forEach((s, employee) -> System.out.println( s + " = " + employee.getName()));
 //
 //        forEach(Consumer)
 //        filter(Predicate)

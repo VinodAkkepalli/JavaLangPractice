@@ -24,6 +24,7 @@ public class StreamsReduceDemo {
         List<String> words1 = Arrays.asList("GFG", "Geeks", "for",
                 "GeeksQuiz", "GeeksforGeeks");
         Collections.sort(words1);
+        System.out.println(words1);
 
         String[] array = { "Geeks", "for", "Geeks" };
         //Get combined string
@@ -39,6 +40,22 @@ public class StreamsReduceDemo {
         //Get the sum of all elements
         Optional<Integer> sum = intList.stream().reduce(Integer::sum);
         sum.ifPresent(System.out::println);
+
+
+        /**
+         * Find sum of squares of all even numbers
+         */
+
+
+        intList = List.of(2, 3, 4, 5, 6);
+
+        Integer sumOfSquaresOfEvenNumbers = intList.stream()
+                .filter(i -> i % 2 == 0)
+                .map(i -> i * i)
+                .reduce(0, Integer::sum);
+
+        System.out.println("sumOfSquaresOfEvenNumbers: " + sumOfSquaresOfEvenNumbers);
+
     }
 
 }
