@@ -1,5 +1,12 @@
 package java16;
 
+/**
+ *
+ * A Record is a new kind of Java class designed specifically to be a transparent, immutable carrier of data.
+ * When you declare a Record, the Java compiler automatically generates the constructor, getters, equals(), hashCode(),
+ * and toString() methods for you behind the scenes.
+ */
+
 public class RecordDemo {
 
     static void main() throws InterruptedException {
